@@ -1,0 +1,148 @@
+@import 'variables'
+*
+    box-sizing: border-box
+    margin: 0
+    padding: 0
+    font-family: 'Ubuntu';
+    outline: none
+a	
+	color:inherit
+	text-decoration: none
+	&:visited
+		text-decoration: none
+		color:inherit
+	
+	&:hover
+		text-decoration: none
+		color:inherit
+	
+	&:focus
+		text-decoration: none
+		color:inherit
+	
+	&:active
+		text-decoration: none
+		color:inherit
+.app
+    background-color: #faf8f5
+    min-height: 800px
+.logo
+    width: 100%
+    height: 60px
+    line-height: 60px
+    background-color: #ffffff
+    box-shadow: 0px 1.5px 10px 0 rgba(1, 0, 42, 0.05)
+    text-align: center
+    span
+        color: $active
+.title
+    width: 100%
+    margin-top: 30px
+    font-weight: 500
+    font-size: 20px
+    color: $text-color
+    text-align: center
+.main
+    display: flex
+    margin: 0% 10%
+    padding-top: 40px
+.data
+    width: 74%
+    .wrapper
+        display: flex
+        flex-wrap: wrap
+        justify-content: space-between
+        width: 100%
+    .choose-expenses, .optionalexpenses, .count-budget, .choose-income-label, .budget-label
+        @include header
+    .expenses-item, .optionalexpenses-item, .choose-income, .choose-sum, .choose-percent, .choose-budget
+        @include input
+        &::placeholder
+            opacity: .3
+    .expenses-item-btn, .optionalexpenses-btn, .count-budget-btn
+        @include btn
+        margin-top: 10px
+    .addAndRem-btn
+        display: flex
+        justify-content: space-between
+        .add-optionalExpenses-item-btn, .add-expenses-item-btn
+            @include btn
+            line-height: 30px
+            background-image: linear-gradient(336deg, #11bd75, #11b6ab), linear-gradient(#ffffff, #ffffff)
+            font-size: 15px
+            font-weight: 500
+            margin: 0;
+            width: calc((100%/2) - 5px)
+        .delete-optionalExpenses-item-btn, .delete-expenses-item-btn
+            @include btn
+            line-height: 30px
+            background-image: linear-gradient(336deg, #ff1b75, #ffb6ab), linear-gradient(#ffffff, #ffffff)
+            font-size: 15px
+            font-weight: 500
+            margin: 0;
+            width: calc((100%/2) - 5px)
+    .optionalexpenses-item
+        width: calc((100%/3) - 4px)
+    .count-budget-btn
+        width: 120px
+    .choose-income, .choose-budget
+        display: block
+        width: 80%
+        margin: 0 auto
+    .checksavings
+        margin: 0 auto
+        margin-top: 20px
+        text-align: center
+        input
+            width: 30px
+    .choose-sum, .choose-percent
+        width: 30%
+        margin: 15px
+    .start
+        @include btn
+        width: 200px
+        height: 45px
+        margin-top: 30px
+        font-size: 18px
+        font-weight: 100
+.result
+    width: 36%
+    .result-label
+        @include header
+        text-transform: uppercase
+    &-table
+        display: flex
+        flex-wrap: wrap
+        justify-content: space-between
+        width: 90%
+        min-height: 400px
+        margin: 0 auto
+        padding: 25px
+        background-color: #fff
+        box-shadow: 0px 1.5px 20px 0 rgba(1, 0, 42, 0.1)
+        .budget, .budget-value, .daybudget, .daybudget-value, .level, .level-value, .expenses, .expenses-value, .optionalexpenses, .optionalexpenses-value, .income, .income-value, .monthsavings, .monthsavings-value, .yearsavings, .yearsavings-value
+            width: 48%
+            margin-top: 10px
+            min-height: 40px
+            padding: 10px
+            font-weight: 500
+        .budget-value, .daybudget-value, .level-value, .expenses-value, .optionalexpenses-value, .income-value, .monthsavings-value, .yearsavings-value
+            color: $result
+            word-break: break-word
+    .time-label
+        @include header
+        margin-top: 30px
+    .time-data
+        width: 100%
+        margin: 0 auto
+        display: flex
+        justify-content: space-around
+        margin-top: 10px
+        .year, .month, .day 
+            font-size: 16px
+            font-weight: 500
+        .year-value, .month-value, .day-value
+            @include input
+            width: 80px
+            height: 30px
+            margin-left: 25px
