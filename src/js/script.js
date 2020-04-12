@@ -53,8 +53,25 @@ appTree.buttons.startCalc.addEventListener(`click`, function() {
     appData.timeData = new Date(time);
 
     appTree.results.budget.textContent = appData.budget;
+    if(money!=``){
+       appTree.buttons.expensesApply.classList.add(`active-btn`);
+       appTree.buttons.expensesApply.removeAttribute(`disabled`);
+
+       appTree.buttons.optionalExpencesApply.classList.add(`active-btn`); 
+       appTree.buttons.optionalExpencesApply.removeAttribute(`disabled`);
+
+       appTree.buttons.dayBudgetCalc.classList.add(`active-btn`);
+       appTree.buttons.dayBudgetCalc.removeAttribute(`disabled`);
+    }
 });
 
+appTree.inputs.savings.isSavings.addEventListener(`click`, function(){
+    if (appTree.inputs.savings.isSavings.checked == false) {
+        appData.isSave = false;
+    } else {        
+        appData.isSave = true;
+    }
+});
 
 
 appTree.buttons.addEpxenses.addEventListener(`click`, function() {
@@ -89,8 +106,7 @@ appTree.buttons.deleteEpxenses.addEventListener(`click`, function() {
 });
 
 appTree.buttons.expensesApply.addEventListener(`click`, function() {
-    let sum = 0,
-        id = /\d/g;
+    let sum = 0;
 
     for (let i = 0; i < appTree.inputs.expenses.length; i++) {
         let name = appTree.inputs.expenses[i].value,
@@ -134,12 +150,77 @@ appTree.buttons.deleteOptionalEpxenses.addEventListener(`click`, function() {
 });
 
 appTree.buttons.optionalExpencesApply.addEventListener(`click`, function() {
+    let expensesValues = ``;
+
     for (let i = 0; i < appTree.inputs.optionalExpenses.length; i++) {
         let expensesValue = appTree.inputs.optionalExpenses[i].value;
 
         if (typeof(expensesValue) != null && expensesValue != "" && expensesValue.length < 15) {
             appData.optionalExpences[i] = expensesValue;
-            appTree.results.optionalExpences.textContent += appData.optionalExpences[i] + `, `;
+            expensesValues += appData.optionalExpences[i] + `, `;
+        }
+    }
+    appTree.results.optionalExpences.textContent = expensesValues.replace(/,\s$/, "");
+});
+
+
+appTree.inputs.income.addEventListener(`change`, function(){
+    let items = appTree.inputs.income.value;
+    appData.income = items.split(', ').sort();
+
+    appTree.results.income.textContent = appData.income;
+});
+
+
+
+appTree.inputs.savings.savingsSum.addEventListener(`change`, function(){
+    appData.savingsSum = appTree.inputs.savings.savingsSum.value;
+
+    if(appData.savingsSum != undefined && appData.savingsPercent != undefined && appData.savingsSum != `` && appData.savingsPercent != ``){
+        if(appData.isSave == false){
+            appTree.inputs.savings.isSavings.checked == true;
+            appData.isSave = true;
+            appTree.inputs.savings.isSavings.click();
+        }
+        appData.monthIncome = (appData.savingsSum / 100 / 12 * appData.savingsPercent).toFixed(1);
+
+        appTree.results.monthSavings.textContent = appData.monthIncome;
+        appTree.results.yearSavings.textContent = appData.monthIncome*12;
+    }else{
+        appData.monthIncome = `Ерор`;
+        appTree.results.monthSavings.textContent = appData.monthIncome;
+        appTree.results.yearSavings.textContent = appData.monthIncome;
+
+        if(appData.isSave == true){
+            appTree.inputs.savings.isSavings.checked == false;
+            appData.isSave = false;
+            appTree.inputs.savings.isSavings.click();
+        }
+    }
+});
+
+appTree.inputs.savings.savingsPercent.addEventListener(`change`, function(){
+    appData.savingsPercent = appTree.inputs.savings.savingsPercent.value;
+
+    if(appData.savingsSum != undefined && appData.savingsPercent != undefined && appData.savingsSum != `` && appData.savingsPercent != ``){
+        if(appData.isSave == false){
+            appTree.inputs.savings.isSavings.checked == true;
+            appData.isSave = true;
+            appTree.inputs.savings.isSavings.click();
+        }
+        appData.monthIncome = (appData.savingsSum / 100 / 12 * appData.savingsPercent).toFixed(1);
+
+        appTree.results.monthSavings.textContent = appData.monthIncome;
+        appTree.results.yearSavings.textContent = (appData.monthIncome*12).toFixed(1);
+    }else{
+        appData.monthIncome = `Ерор`;
+        appTree.results.monthSavings.textContent = appData.monthIncome;
+        appTree.results.yearSavings.textContent = appData.monthIncome;
+
+        if(appData.isSave == true){
+            appTree.inputs.savings.isSavings.checked == false;
+            appData.isSave = false;
+            appTree.inputs.savings.isSavings.click();
         }
     }
 });
@@ -149,7 +230,7 @@ appTree.buttons.dayBudgetCalc.addEventListener(`click`, function() {
     appData.budget = appTree.inputs.budget.value;
     appTree.results.budget.textContent = appData.budget;
 
-    appData.moneyPerDay = (appData.budget / 30).toFixed();
+    appData.moneyPerDay = (appData.budget / 30).toFixed(1) - (appTree.results.expenses.textContent/30).toFixed(1);
     appTree.results.dayBudget.textContent = appData.moneyPerDay;
 
     if (appData.moneyPerDay < 100) {
@@ -163,46 +244,13 @@ appTree.buttons.dayBudgetCalc.addEventListener(`click`, function() {
     }
 });
 
+
+
 let appData = {
     budget: money,
     timeData: time,
     expenses: {},
     optionalExpences: {},
     income: [],
-    detectDayBudget: function() {
-
-    },
-    detectLevel: function() {
-
-    },
-    getUserExpences: function() {
-
-    },
-    getUserOptExpences: function() {
-
-    },
-    checkSavings: function() {
-        appData.savings = confirm(`Are you savings?`);
-        if (appData.savings == true) {
-            let saveSum = +prompt('How much?', ''),
-                percent = +prompt(`What is percent?`);
-
-            appData.monthIncome = saveSum / 100 / 12 * percent;
-            alert(`You deposit income ${appData.monthIncome}`);
-        }
-    },
-    chooseIncome: function() {
-        let items = prompt(`Ваш додатковий дохід? (перечисліть через кому)`, ``);
-
-        if (items != null &&
-            items != "") {
-            appData.income = appData.income.concat(items.split(', ').sort());
-        } else {
-            appData.chooseIncome();
-        }
-        appData.income.forEach(function(element, index) {
-            console.log(`${index+1}${element}`);
-        });
-    },
-
+    isSave: false,
 };

@@ -23,6 +23,10 @@
                 <div class="budget-label">Введите свой доход за месяц</div>
                 <input class="choose-budget" type="text" id="budget" maxlength="7">
 
+                <div class="open">
+                    <button class="start" id="start">Начать расчет</button>
+                </div>
+
                 <div class="choose-expenses">Введите обязательные расходы</div>
                 <div class="wrapper">
                     <input class="expenses-item" type="text" id="expenses_1" placeholder="Наименование">
@@ -34,7 +38,7 @@
                     <button class="delete-expenses-item-btn">Минимальное количество</button>
                     <button class="add-expenses-item-btn">+</button>
                 </div>
-                <button class="expenses-item-btn">Утвердить</button>
+                <button class="expenses-item-btn" disabled>Утвердить</button>
 
                 <div class="optionalexpenses">Введите необязательные расходы</div>
                 <div class="wrapper">
@@ -46,25 +50,24 @@
                     <button class="delete-optionalExpenses-item-btn">Минимальное количество</button>
                     <button class="add-optionalExpenses-item-btn">+</button>
                 </div>
-                <button class="optionalexpenses-btn">Утвердить</button>
+                <button class="optionalexpenses-btn" disabled>Утвердить</button>
 
                 <div class="count-budget">Расчет дневного бюджета</div>
-                <button class="count-budget-btn">Рассчитать</button>
+                <button class="count-budget-btn" disabled>Рассчитать</button>
 
                 <div class="choose-income-label">Введите статьи возможного дохода через запятую</div>
                 <input class="choose-income" type="text" id="income">
 
-                <div class="checksavings">Есть ли накопления:
-                    <input id="savings" type="checkbox" />
+                <div class="checksavings">
+                    <label>Есть ли накопления:
+                        <input id="savings" type="checkbox" />
+                    </label>
                 </div>
                 <label for="sum">Сумма</label>
                 <input class="choose-sum" id="sum" type="text">
                 <label for="percent">Процент</label>
                 <input class="choose-percent" id="percent" type="text">
 
-                <div class="open">
-                    <button class="start" id="start">Начать расчет</button>
-                </div>
             </div>
             <div class="result">
                 <div class="result-label">Результаты</div>
